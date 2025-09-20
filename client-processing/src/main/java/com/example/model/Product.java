@@ -21,16 +21,17 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "product_name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "product_key")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "key", nullable = false)
     private ProductKey key;
 
     @Column(name = "create_date")
     private LocalDate createDate;
 
-    @Column(name = "product_id")
-    private Long productId;
+    @Column(name = "product_id", unique = true, nullable = false)
+    private String productId;
 
 }

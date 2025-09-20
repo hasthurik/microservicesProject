@@ -27,7 +27,7 @@ public class Client {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "fist_name")
+    @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "middle_name")
@@ -41,7 +41,7 @@ public class Client {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "document_type", nullable = false)
-    private DocumentType docType;
+    private DocumentType documentType;
 
     @Column(name = "document_id", nullable = false)
     private String documentId;
@@ -51,5 +51,4 @@ public class Client {
 
     @Column(name = "document_suffix")
     private String documentSuffix;
-
 }

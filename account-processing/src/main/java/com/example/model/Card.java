@@ -27,6 +27,4 @@ public class Card {
 
     @Column(name = "status")
     private String status;
-
-
 }

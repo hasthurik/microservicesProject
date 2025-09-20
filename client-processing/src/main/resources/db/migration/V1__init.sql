@@ -21,15 +21,15 @@ CREATE TABLE clients (
 
 CREATE TABLE products (
     id bigserial PRIMARY KEY,
-    product_name VARCHAR(255) NOT NULL,
-    product_key VARCHAR(10) NOT NULL,
-    create_date DATE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    key VARCHAR(10) NOT NULL,
+    create_date date NOT NULL,
     product_id VARCHAR(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE client_products (
     id bigserial PRIMARY KEY,
-    client_id BIGSERIAL NOT NULL REFERENCES clients(id),
+    client_id BIGINT  NOT NULL REFERENCES clients(id),
     product_id BIGINT NOT NULL REFERENCES products(id),
     open_date DATE NOT NULL,
     close_date DATE,

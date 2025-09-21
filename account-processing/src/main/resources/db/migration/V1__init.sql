@@ -1,3 +1,4 @@
+
 CREATE TABLE accounts (
     id BIGSERIAL PRIMARY KEY,
     client_id BIGINT NOT NULL,
@@ -7,6 +8,7 @@ CREATE TABLE accounts (
     is_recalc BOOLEAN NOT NULL DEFAULT FALSE,
     card_exist BOOLEAN NOT NULL DEFAULT FALSE,
     status VARCHAR(50) NOT NULL
+        check (status in ('ACTIVE', 'CLOSED', 'BLOCKED', 'ARRESTED'))
 );
 
 CREATE TABLE cards (
@@ -27,13 +29,6 @@ CREATE TABLE payments (
     type VARCHAR(50) NOT NULL
 );
 
-CREATE TYPE transaction_status AS ENUM (
-    'ALLOWED',
-    'PROCESSING',
-    'COMPLETE',
-    'BLOCKED',
-    'CANCELLED'
-);
 
 CREATE TABLE transactions (
     id BIGSERIAL PRIMARY KEY,
@@ -41,6 +36,7 @@ CREATE TABLE transactions (
     card_id BIGINT REFERENCES cards(id),
     transaction_type VARCHAR(50) NOT NULL,
     amount NUMERIC(19,2) NOT NULL,
-    status transaction_status NOT NULL,
+    status VARCHAR(50) NOT NULL
+        check (status in ('ALLOWED', 'PROCESSING', 'COMPLETE', 'BLOCKED', 'CANCELLED')),
     timestamp TIMESTAMP NOT NULL DEFAULT NOW()
 );

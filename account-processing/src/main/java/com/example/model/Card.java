@@ -1,8 +1,8 @@
 package com.example.model;
 
-import com.example.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

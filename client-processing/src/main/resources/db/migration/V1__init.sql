@@ -13,7 +13,8 @@ CREATE TABLE clients (
     middle_name VARCHAR(100),
     last_name VARCHAR(100) NOT NULL,
     date_of_birth DATE NOT NULL,
-    document_type VARCHAR(20) NOT NULL,
+    type VARCHAR(50) NOT NULL
+        check (type in ('PASSPORT', 'INT_PASSPORT', 'BIRTH_CERT')),
     document_id VARCHAR(50) NOT NULL,
     document_prefix VARCHAR(20),
     document_suffix VARCHAR(20)

@@ -40,7 +40,7 @@ public class Client {
     private Date dateOfBirth;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "document_type", nullable = false)
+    @Column(name = "type", nullable = false)
     private DocumentType documentType;
 
     @Column(name = "document_id", nullable = false)

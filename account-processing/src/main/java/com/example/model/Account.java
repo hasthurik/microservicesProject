@@ -1,12 +1,11 @@
 package com.example.model;
 
-import com.example.enums.Status;
+import com.example.enums.AccountStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
 
@@ -40,6 +39,7 @@ public class Account {
     @Column(name = "card_exist", nullable = false)
     private Boolean cardExist;
 
-    @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "account_status")
+    private AccountStatus status;
 }

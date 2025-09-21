@@ -13,8 +13,6 @@ spring:
     validate-on-migrate: false
 
   jpa:
-    hibernate:
-      ddl-auto: none
     show-sql: true
     properties:
       hibernate:

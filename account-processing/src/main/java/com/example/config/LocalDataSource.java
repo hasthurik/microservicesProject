@@ -1,5 +1,8 @@
 package com.example.config;
 
+import com.github.dockerjava.api.model.ExposedPort;
+import com.github.dockerjava.api.model.PortBinding;
+import com.github.dockerjava.api.model.Ports;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +27,13 @@ public class LocalDataSource {
                 DockerImageName.parse(primaryPostgreSQLContainer).asCompatibleSubstituteFor("postgres");
         final PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(postgres);
         postgreSQLContainer.withReuse(true); //повторное использование контейнера
-        postgreSQLContainer.withExposedPorts(5432);
+        postgreSQLContainer.withCreateContainerCmdModifier(cmd ->
+                cmd.getHostConfig()
+                        .withPortBindings(new PortBinding(
+                                Ports.Binding.bindPort(5434),
+                                new ExposedPort(5432)
+                        ))
+        );
         postgreSQLContainer.withDatabaseName("account_db");
         postgreSQLContainer.start();
         log.info("Jdbc url: {}", postgreSQLContainer.getJdbcUrl());

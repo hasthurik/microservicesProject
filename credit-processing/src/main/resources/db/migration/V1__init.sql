@@ -1,19 +1,21 @@
 CREATE TABLE product_registry (
-    id BIGSERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     client_id BIGINT NOT NULL,
     account_id BIGINT NOT NULL,
-    product_id BIGINT NOT NULL,
-    interest_rate DOUBLE PRECISION NOT NULL,
-    open_date DATE NOT NULL
+    producer_id BIGINT,
+    interest_rate DOUBLE PRECISION,
+    open_date DATE,
+    payment_date TIMESTAMP,
+    mount_number INT
 );
 
 CREATE TABLE payment_registry (
-    id BIGSERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     product_registry_id BIGINT NOT NULL REFERENCES product_registry(id),
     payment_date DATE NOT NULL,
-    amount NUMERIC(19,2) NOT NULL,
-    interest_rate_amount NUMERIC(19,2) NOT NULL,
-    debt_amount NUMERIC(19,2) NOT NULL,
+    amount NUMERIC(18,2),
+    interest_rate_amount NUMERIC(18,2) NOT NULL,
+    debt_amount NUMERIC(18,2) NOT NULL,
     expired BOOLEAN NOT NULL DEFAULT FALSE,
     payment_expiration_date DATE NOT NULL
-);
+    );

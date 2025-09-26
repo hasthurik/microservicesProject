@@ -2,8 +2,11 @@ package com.example.enums;
 
 //product_status_enum
 public enum Status {
-    ACTIVE,
-    CLOSED,
-    BLOCKED,
-    ARRESTED
+    ACTIVE("active"),
+    CLOSED("closed"),
+    BLOCKED("blocked"),
+    ARRESTED("arrested");
+
+    Status(String value) {
+    }
 }

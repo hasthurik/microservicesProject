@@ -1,8 +1,13 @@
 package com.example.enums;
 
 public enum AccountStatus {
-    ACTIVE,
-    CLOSED,
-    BLOCKED,
-    ARRESTED
+    BLOCKED("Blocked"),
+    OPENED("Opened"),
+    ACTIVE("Active"),
+    CLOSED("Closed"),
+    FROZEN("Frozen"),
+    ARRESTED("Arrested");
+
+    AccountStatus(String value) {
+    }
 }

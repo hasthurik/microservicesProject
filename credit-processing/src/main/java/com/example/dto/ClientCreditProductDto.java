@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @Builder
 public class ClientCreditProductDto {
 
-    private Long clientId;
+    private String clientId;
 
     private Long accountId;
 

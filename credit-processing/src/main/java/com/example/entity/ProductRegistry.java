@@ -24,7 +24,7 @@ public class ProductRegistry {
     private Long id;
 
     @Column(name = "client_id")
-    private Long clientId;
+    private String clientId;
 
     @Column(name = "account_id")
     private Long accountId;

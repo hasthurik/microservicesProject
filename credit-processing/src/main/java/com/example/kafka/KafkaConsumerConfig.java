@@ -1,6 +1,7 @@
 package com.example.kafka;
 
 import com.example.dto.ClientCreditProductDto;
+import com.example.dto.ClientInfoDto;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,23 +27,24 @@ public class KafkaConsumerConfig {
     private String groupId;
 
     @Bean
-    public ConsumerFactory<String, ClientCreditProductDto> creditConsumerFactory() {
-        JsonDeserializer<ClientCreditProductDto> deserializer = new JsonDeserializer<>(ClientCreditProductDto.class);
-        deserializer.addTrustedPackages("*");
-
-        Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-
-        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), deserializer);
+    public ConsumerFactory<String, ClientCreditProductDto> ClientCreditProductConsumerFactory() {
+        return new DefaultKafkaConsumerFactory<>(Map.of(
+                ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers,
+                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class,
+                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class,
+                ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, StringDeserializer.class,
+                ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class,
+                JsonDeserializer.TRUSTED_PACKAGES, "*",
+                JsonDeserializer.USE_TYPE_INFO_HEADERS, false,
+                JsonDeserializer.VALUE_DEFAULT_TYPE, "com.example.dto.ClientInfoDto"));
     }
+
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, ClientCreditProductDto> creditKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, ClientCreditProductDto> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(creditConsumerFactory());
+        factory.setConsumerFactory(ClientCreditProductConsumerFactory());
         return factory;
     }
 }

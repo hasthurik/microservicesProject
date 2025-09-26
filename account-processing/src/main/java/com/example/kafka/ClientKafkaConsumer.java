@@ -4,16 +4,12 @@ package com.example.kafka;
 import com.example.dto.CardRequestDto;
 import com.example.dto.ClientProductDto;
 import com.example.dto.TransactionDto;
-import com.example.entity.Account;
-import com.example.enums.AccountStatus;
 import com.example.repository.AccountRepository;
 import com.example.service.AccountService;
 import com.example.service.CardService;
-import com.github.dockerjava.zerodep.shaded.org.apache.hc.core5.reactor.IOSession;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 
 @Component
 public class ClientKafkaConsumer {
@@ -51,7 +47,7 @@ public class ClientKafkaConsumer {
 
     @KafkaListener(topics = "client_cards",
             groupId = "client-service",
-            containerFactory = "creditConsumerFactory")
+            containerFactory = "cardKafkaListenerContainerFactory")
     public void listenClientCards(CardRequestDto cardDto) {
         try {
             cardService.createCard(cardDto);
@@ -59,7 +55,5 @@ public class ClientKafkaConsumer {
             System.err.println("Failed to create card: " + e.getMessage());
         }
     }
-
-
 
 }

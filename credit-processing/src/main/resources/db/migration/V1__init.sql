@@ -1,6 +1,6 @@
 CREATE TABLE product_registry (
     id SERIAL PRIMARY KEY,
-    client_id BIGINT NOT NULL,
+    client_id VARCHAR(12) NOT NULL,
     account_id BIGINT NOT NULL,
     producer_id BIGINT,
     interest_rate DOUBLE PRECISION,

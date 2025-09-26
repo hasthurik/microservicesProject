@@ -4,12 +4,12 @@ import com.example.dto.ClientCreditProductDto;
 import com.example.dto.ClientInfoDto;
 import com.example.entity.PaymentRegistry;
 import com.example.entity.ProductRegistry;
+import com.example.interfaces.ClientService;
 import com.example.repository.PaymentScheduleRepo;
 import com.example.repository.ProductRegistryRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -23,9 +23,7 @@ public class CreditProductService {
 
     private final ProductRegistryRepo productRegistryRepo;
     private final PaymentScheduleRepo paymentScheduleRepo;
-    private final RestTemplate restTemplate;
-
-
+    private final ClientService clientService;
 
     @Value("${credit.max-limit}")
     private BigDecimal maxCreditLimit;
@@ -38,10 +36,9 @@ public class CreditProductService {
                 .map(p -> getTotalProductAmount(p)) // сумма по продукту
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        ClientInfoDto clientInfo = restTemplate.getForObject(
-                "http://ms1:8081/clients/" + dto.getClientId(),
-                ClientInfoDto.class
-        );
+        ClientInfoDto clientInfo =  clientService.getClientInfo(dto.getClientId());
+
+
 
         if (clientInfo == null) throw new RuntimeException("Client info not found");
 
@@ -52,7 +49,6 @@ public class CreditProductService {
             saveRejected(dto);
             return;
         }
-
         ProductRegistry product = ProductRegistry.builder()
                 .clientId(dto.getClientId())
                 .accountId(dto.getAccountId())
@@ -62,6 +58,8 @@ public class CreditProductService {
                 .mountNumber(dto.getMountNumber())
                 .paymentDate(LocalDateTime.now())
                 .build();
+
+        System.out.println(product);
 
         productRegistryRepo.save(product);
 
@@ -119,7 +117,6 @@ public class CreditProductService {
                     .expired(false)
                     .paymentExpirationDate(LocalDate.now().plusMonths(month))
                     .build();
-
             paymentScheduleRepo.save(payment);
         }
     }

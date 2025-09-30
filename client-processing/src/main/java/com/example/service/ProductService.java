@@ -7,6 +7,7 @@ import com.example.repository.ProductRepo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,6 +51,7 @@ public class ProductService {
         return new ResponseEntity<>("Product not found!", HttpStatus.NOT_FOUND);
     }
 
+    @Transactional
     public ResponseEntity<Product> updateProduct(ProductDto productDto, Long id) {
 
         Optional<Product> existingProductOpt = productRepo.findById(id);

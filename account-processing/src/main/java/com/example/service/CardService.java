@@ -4,9 +4,10 @@ import com.example.dto.CardRequestDto;
 import com.example.entity.Account;
 import com.example.entity.Card;
 import com.example.enums.AccountStatus;
-import com.example.repository.AccountRepository;
+import com.example.repository.AccountRepo;
 import com.example.repository.CardRepo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -15,17 +16,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CardService {
 
     private final CardRepo cardRepo;
-    private final AccountRepository accountRepo;
+    private final AccountRepo accountRepo;
 
     private final AtomicInteger counter = new AtomicInteger(1);
 
 
-    public CardService(CardRepo cardRepo, AccountRepository accountRepo) {
+    public CardService(CardRepo cardRepo, AccountRepo accountRepo) {
         this.cardRepo = cardRepo;
         this.accountRepo = accountRepo;
     }
 
 
+    @Transactional
     public void createCard(CardRequestDto cardDto) {
         // Находим аккаунт по clientId
         Optional<Account> accountOpt = accountRepo.findByClientId(cardDto.getClientId());

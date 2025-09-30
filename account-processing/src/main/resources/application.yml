@@ -43,3 +43,11 @@ server:
 postgres:
   container:
     image: postgres:15.2
+
+limits:
+  max-transactions: 5
+  max-time: 1m
+
+credit:
+  creditAmount: 100000
+  months: 12

@@ -16,7 +16,6 @@ public class CardService {
 
     public ResponseEntity<String> request(CardRequestDto card) {
 
-        System.out.println("CardRequestDtoMS1: " + card);
         producer.sendCardRequest(card);
 
          return ResponseEntity.ok().body("Request has been sent");

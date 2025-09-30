@@ -68,11 +68,10 @@ public class ClientProductService {
     }
 
     public ResponseEntity<String> deleteById(Long id) {
-
         if (repo.existsById(id)) {
             repo.deleteById(id);
             return new ResponseEntity<>("ClientProduct id = " + id + "delete!", HttpStatus.OK);
         }
-        return new ResponseEntity<>("ClientProduct id = "+id + " not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("ClientProduct id = " + id + " not found", HttpStatus.NOT_FOUND);
     }
 }

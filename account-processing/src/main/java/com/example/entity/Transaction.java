@@ -1,8 +1,10 @@
 package com.example.entity;
 
 import com.example.enums.TransactionStatus;
+import com.example.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "transactions")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transaction {
@@ -28,7 +31,7 @@ public class Transaction {
     private Long CardId;
 
     @Column(name = "transaction_type")
-    private String type;
+    private TransactionType type;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)

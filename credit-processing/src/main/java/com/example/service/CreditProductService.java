@@ -30,10 +30,12 @@ public class CreditProductService {
 
     public void processCreditRequest(ClientCreditProductDto dto) {
 
+        //получение существующих кредитов клиента
         List<ProductRegistry> existingProducts = productRegistryRepo.findByClientId(dto.getClientId());
 
+        //общая сумма кредитов
         BigDecimal totalCredit = existingProducts.stream()
-                .map(p -> getTotalProductAmount(p)) // сумма по продукту
+                .map(p -> getTotalProductAmount(p))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         ClientInfoDto clientInfo =  clientService.getClientInfo(dto.getClientId());
@@ -42,13 +44,16 @@ public class CreditProductService {
 
         if (clientInfo == null) throw new RuntimeException("Client info not found");
 
+        //Проверка просрочек
         boolean hasOverdue = existingProducts.stream()
                 .anyMatch(p -> checkOverduePayments(p));
 
+        //принятие решения
         if (totalCredit.add(dto.getCreditAmount()).compareTo(maxCreditLimit) > 0 || hasOverdue) {
             saveRejected(dto);
             return;
         }
+
         ProductRegistry product = ProductRegistry.builder()
                 .clientId(dto.getClientId())
                 .accountId(dto.getAccountId())

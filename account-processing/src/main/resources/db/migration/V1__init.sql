@@ -26,7 +26,8 @@ CREATE TABLE payments (
     amount NUMERIC(19,2) NOT NULL,
     is_credit BOOLEAN NOT NULL,
     payed_at TIMESTAMP,
-    type VARCHAR(50) NOT NULL
+    type VARCHAR(50) NOT NULL,
+    expired BOOLEAN
 );
 
 

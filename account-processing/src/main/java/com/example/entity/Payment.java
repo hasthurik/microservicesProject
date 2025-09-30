@@ -2,6 +2,7 @@ package com.example.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Payment {
 
     @Id
@@ -35,4 +37,11 @@ public class Payment {
 
     @Column(name = "type")
     private String type;
+
+    @Column(name = "expired")
+    private Boolean expired;
+
+    @Column(name = "payed_at")
+    private LocalDateTime payedAt;
+
 }

@@ -1,11 +1,9 @@
 package com.example.service;
 
-import com.example.dto.CardRequestDto;
 import com.example.dto.ClientProductDto;
-import com.example.dto.TransactionDto;
 import com.example.entity.Account;
 import com.example.enums.AccountStatus;
-import com.example.repository.AccountRepository;
+import com.example.repository.AccountRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +14,9 @@ import java.util.List;
 @Service
 public class AccountService {
 
-    private final AccountRepository accountRepository;
+    private final AccountRepo accountRepository;
 
-    public AccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepo accountRepository) {
         this.accountRepository = accountRepository;
     }
 
@@ -49,7 +47,4 @@ public class AccountService {
         accountRepository.save(account);
     }
 
-    public void processTransaction(TransactionDto transactionDto) {
-        System.out.println("listening...");
-    }
 }

@@ -1,9 +1,20 @@
 spring:
   datasource:
-#    url: jdbc:postgresql://localhost:5432/client_db
-#    username: postgres
-#    password: 4376
     driver-class-name: org.postgresql.Driver
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    properties:
+      spring.json.trusted.packages: "*"
+
+topics:
+  client-products: client_products
+  client-credit-products: client_credit_products
+  client-cards: client_cards
+  client-registered: client_registered
 
   flyway:
     enabled: true
@@ -19,6 +30,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
 
+server:
+  port: 8081
 
 postgres:
   container:

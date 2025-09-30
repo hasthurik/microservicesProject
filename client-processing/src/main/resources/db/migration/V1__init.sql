@@ -7,7 +7,7 @@ CREATE TABLE users (
 
 CREATE TABLE clients (
     id bigserial PRIMARY KEY,
-    client_id VARCHAR(20) UNIQUE NOT NULL,
+    client_id VARCHAR(12) UNIQUE NOT NULL,
     user_id BIGINT NOT NULL,
     first_name VARCHAR(100) NOT NULL,
     middle_name VARCHAR(100),
@@ -15,7 +15,7 @@ CREATE TABLE clients (
     date_of_birth DATE NOT NULL,
     type VARCHAR(50) NOT NULL
         check (type in ('PASSPORT', 'INT_PASSPORT', 'BIRTH_CERT')),
-    document_id VARCHAR(50) NOT NULL,
+    document_id VARCHAR(50),
     document_prefix VARCHAR(20),
     document_suffix VARCHAR(20)
 );
@@ -30,9 +30,16 @@ CREATE TABLE products (
 
 CREATE TABLE client_products (
     id bigserial PRIMARY KEY,
-    client_id BIGINT  NOT NULL REFERENCES clients(id),
-    product_id BIGINT NOT NULL REFERENCES products(id),
+    client_id varchar(12)  NOT NULL REFERENCES clients(client_id) ON DELETE CASCADE,
+    product_id VARCHAR(50) NOT NULL REFERENCES products(product_id) ON DELETE CASCADE,
     open_date DATE NOT NULL,
     close_date DATE,
     status VARCHAR(20) NOT NULL
 );
+
+CREATE TABLE black_list (
+    id bigserial PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    middle_name VARCHAR(50),
+    last_name VARCHAR(50) NOT NULL
+)

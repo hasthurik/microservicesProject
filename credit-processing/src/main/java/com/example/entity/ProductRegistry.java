@@ -1,0 +1,48 @@
+package com.example.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "product_registry")
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class ProductRegistry {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "client_id")
+    private String clientId;
+
+    @Column(name = "account_id")
+    private Long accountId;
+
+    @Column(name = "producer_id")
+    private Long producerId;
+
+    @Column(name = "interest_rate")
+    private Double interestRate;
+
+    @Column(name = "open_date")
+    private LocalDate openDate;
+
+    @Column(name = "payment_date")
+    private LocalDateTime paymentDate;
+
+    @Column(name = "mount_number")
+    private Integer mountNumber;
+}

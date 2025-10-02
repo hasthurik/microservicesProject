@@ -25,7 +25,8 @@
 		<module>client-processing</module>
 		<module>account-processing</module>
 		<module>credit-processing</module>
-	</modules>
+        <module>logging-module</module>
+    </modules>
 	<scm>
 		<connection/>
 		<developerConnection/>

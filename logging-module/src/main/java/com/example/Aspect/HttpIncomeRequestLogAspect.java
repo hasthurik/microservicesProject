@@ -34,7 +34,7 @@ public class HttpIncomeRequestLogAspect {
         kafkaTemplate.send("service_logs",
                 MessageBuilder.withPayload(logMsg)
                         .setHeader("type", "INFO")
-                        .setHeader("service", "ms-2")
+                        .setHeader("service", "account-processing")
                         .build()
         );
 

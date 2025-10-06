@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import com.example.annotation.Metric;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,5 +37,6 @@ public class ErrorLog {
 
     @Column(columnDefinition = "TEXT")
     private String argsJson;
+
 
 }

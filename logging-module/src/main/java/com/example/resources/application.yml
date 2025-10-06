@@ -43,3 +43,9 @@ server:
 postgres:
   container:
     image: postgres:15-alpine
+
+metric:
+  limit: 1000
+
+cache:
+  time: 60

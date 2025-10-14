@@ -36,3 +36,9 @@ server:
 postgres:
   container:
     image: postgres:15.2
+
+jwt:
+  token:
+    secret: 42d89781d1d025620a58806b5aaec53e5470703c4962f2cd6376a9d1ecfa3fac
+
+  expiration-ms: 3600000

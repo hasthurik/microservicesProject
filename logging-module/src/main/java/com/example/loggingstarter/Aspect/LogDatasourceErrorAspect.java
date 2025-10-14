@@ -1,7 +1,7 @@
-package com.example.Aspect;
+package com.example.loggingstarter.Aspect;
 
-import com.example.entity.ErrorLog;
-import com.example.repository.ErrorLogRepo;
+import com.example.loggingstarter.entity.ErrorLog;
+import com.example.loggingstarter.repository.ErrorLogRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -23,7 +23,7 @@ public class LogDatasourceErrorAspect {
     private final KafkaTemplate<String, Object> kafkaTemplate;
     private final ErrorLogRepo errorLogRepo;
 
-    @Around("@annotation(com.example.annotation.LogDatasourceError)")
+    @Around("@annotation(com.example.loggingstarter.annotation.LogDatasourceError)")
     public Object logErrors(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
             return joinPoint.proceed();

@@ -1,4 +1,4 @@
-package com.example.annotation;
+package com.example.loggingstarter.annotation;
 
 
 public @interface Cached {

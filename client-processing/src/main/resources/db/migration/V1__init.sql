@@ -1,7 +1,7 @@
 CREATE TABLE users (
     id bigserial PRIMARY KEY,
     login VARCHAR(50) NOT NULL unique,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     email  VARCHAR(100) NOT NULL UNIQUE
 );
 

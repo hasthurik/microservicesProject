@@ -1,4 +1,4 @@
-package com.example.Aspect;
+package com.example.loggingstarter.Aspect;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class HttpOutcomeRequestLogAspect {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    @AfterReturning(pointcut = "@annotation(com.example.annotation.HttpOutcomeRequestLog)", returning = "result")
+    @AfterReturning(pointcut = "@annotation(com.example.loggingstarter.annotation.HttpOutcomeRequestLog)", returning = "result")
     public void logHttpRequests(JoinPoint joinPoint, Object result) {
         String methodSignature = joinPoint.getSignature().toShortString();
 

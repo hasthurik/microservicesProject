@@ -1,4 +1,4 @@
-package com.example.Aspect;
+package com.example.loggingstarter.Aspect;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class HttpIncomeRequestLogAspect {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    @Before("@annotation(com.example.annotation.HttpIncomeRequestLog)")
+    @Before("@annotation(com.example.loggingstarter.annotation.HttpIncomeRequestLog)")
     public void logIncomingRequests(JoinPoint joinPoint) {
         String methodSignature = joinPoint.getSignature().toShortString();
 

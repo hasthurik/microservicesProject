@@ -1,48 +1,18 @@
+logging:
+  kafka:
+    topic: service_logs
+
 spring:
-datasource:
-  driver-class-name: org.postgresql.Driver
-flyway:
-  enabled: true
-  locations: classpath:db/migration
-  baseline-on-migrate: true
-  repair-on-migrate: true
-  validate-on-migrate: false
-
-kafka:
-  bootstrap-servers: localhost:9092
-  consumer:
-    group-id: client-service
-    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-    properties:
-      spring.json.trusted.packages: "*"
-      spring.json.value.default.type: com.example.dto.CardRequestDto
-  listener:
-    ack-mode: manual_immediate
-
-topics:
-  client-products: client_products
-  client-credit-products: client_credit_products
-  client-cards: client_cards
-  client-registered: client_registered
-
-jpa:
-  show-sql: true
-  properties:
+  jpa:
     hibernate:
-      dialect: org.hibernate.dialect.PostgreSQLDialect
-      format_sql: true
+    show-sql: false
 
-sql:
-  init:
-    mode: always
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/loggingdb
+#    username: postgres
+#    password: postgres
+#    driver-class-name: org.postgresql.Driver
 
-server:
-  port: 8084
-
-postgres:
-  container:
-    image: postgres:15-alpine
 
 metric:
   limit: 1000

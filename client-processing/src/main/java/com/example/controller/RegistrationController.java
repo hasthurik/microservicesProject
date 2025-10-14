@@ -27,6 +27,8 @@ public class RegistrationController {
     @PostMapping()
     public ResponseEntity<String> registerClient(@RequestBody ClientRegistrationDto clientDto) {
 
+        System.out.println(clientDto.toString());
+
         if (blackListRepo.findByFirstNameAndLastName(clientDto.getFirstName(), clientDto.getLastName()).isPresent()) {
             return new ResponseEntity<>("Client - BANNED!!!!!", HttpStatus.CONFLICT);
         }

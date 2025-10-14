@@ -1,6 +1,6 @@
-package com.example.Aspect;
+package com.example.loggingstarter.Aspect;
 
-import lombok.RequiredArgsConstructor;
+import com.example.loggingstarter.service.LoggingFallbackService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -16,19 +16,22 @@ import java.util.Map;
 
 @Aspect
 @Component
-@RequiredArgsConstructor
 @Slf4j
 public class MetricAspect {
-
-    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @Value("${metric.limit}")
     private long limitMs;
 
-    @Value("${spring.application.name:unknown-service}")
+    @Value("${spring.application.name:-service}")
     private String serviceName;
 
-    @Around("@annotation(com.example.annotation.Metric)")
+    private final KafkaTemplate<String, Object> kafkaTemplate;
+
+    public MetricAspect(KafkaTemplate<String, Object> kafkaTemplate, LoggingFallbackService fallbackService) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
+
+    @Around("@annotation(com.example.loggingstarter.annotation.Metric)")
     public Object measureExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
 

@@ -1,6 +1,6 @@
-package com.example.Aspect;
+package com.example.loggingstarter.Aspect;
 
-import com.example.annotation.Cached;
+import com.example.loggingstarter.annotation.Cached;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

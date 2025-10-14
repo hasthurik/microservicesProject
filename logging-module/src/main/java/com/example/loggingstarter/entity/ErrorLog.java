@@ -1,6 +1,5 @@
-package com.example.entity;
+package com.example.loggingstarter.entity;
 
-import com.example.annotation.Metric;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

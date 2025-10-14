@@ -1,6 +1,6 @@
-package com.example.repository;
+package com.example.loggingstarter.repository;
 
-import com.example.entity.ErrorLog;
+import com.example.loggingstarter.entity.ErrorLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

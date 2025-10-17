@@ -49,7 +49,7 @@ public class CardService {
         // Создаём карту
         Card card = Card.builder()
                 .cardId(cardId)
-                .accountId(account.getId())  // <- используем id найденного аккаунта
+                .accountId(account.getId())
                 .paymentSystem(cardDto.getPaymentSystem().toString())
                 .status("ACTIVE")
                 .build();

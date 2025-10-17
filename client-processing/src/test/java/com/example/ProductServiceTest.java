@@ -54,7 +54,6 @@ class ProductServiceTest {
 
     @Test
     void saveProduct_shouldSaveTwiceAndReturnSavedEntity() {
-        // given
         when(productMapper.toEntity(dto)).thenReturn(product);
         when(productRepo.save(any(Product.class))).thenAnswer(invocation -> {
             Product p = invocation.getArgument(0);
@@ -62,10 +61,8 @@ class ProductServiceTest {
             return p;
         });
 
-        // when
         Product result = productService.saveProduct(dto);
 
-        // then
         assertThat(result.getProductId()).isEqualTo("AC1");
         verify(productRepo, times(2)).save(any(Product.class));
         verify(productMapper).toEntity(dto);
